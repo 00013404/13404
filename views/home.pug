@@ -1,0 +1,24 @@
+extends navigation.pug
+
+block number1
+    if error 
+     p.error Please fill out the empty field!
+
+    if success  
+     p.success Success!
+
+    form.form(action='/add' method = 'POST')
+        input.input(type='text' placeholder = 'Type your note here.....' name = "notes")
+        button.btn Add
+
+    div.notes
+        if notes.length
+            each note in notes 
+                p.note
+                    if note.done
+                     a.completed(href = `/${ note.id }/update`) #{ note.caption }
+                    else
+                     a.incomplete(href = `/${ note.id }/update`) #{ note.caption } 
+                    a.delete(href = `/${ note.id }/delete`) Delete
+        else
+         p.note No saved notes!     
